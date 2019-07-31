@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>AngularJS Application</title>
+    <script type="text/javascript" src="resource/js/angular_v1.6.0.js"></script>
+    <script type="text/javascript" src="resource/js/calculator.js"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+<body ng-app="calculator" ng-controller="mainController">
+
+<div class="container">
+    <div class="row" ng-controller="calculationController">
+        <div class="col-12"><h2>Previous Calculations</h2></div>
+        <div class="col-12">
+            <table class="table table-striped table-bordered">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">First</th>
+                    <th scope="col">Last</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="calc in calculations">
+                    <td>{{calc.id}}</td>
+                    <td>{{calc.date}}</td>
+                    <td>
+                        <button class="btn btn-primary"
+                                ng-click="getExpressionByCalculation(calc)">Show
+                            expressions
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <form name="fileUpload">
+                <div class="form-group row" ng-controller="fupController" ng-show="isShow">
+                    <label for="file" class="col-4 col-form-label"><h4>New Calculation</h4></label>
+                    <input type="file" id="file" name="file" multiple
+                           onchange="angular.element(this).scope().getFileDetails(this)" class="col-6 form-control-file"
+                           required/>
+
+                    <button id="buttonFileUpload" type="button" class="btn btn-primary col-2" ng-click="uploadFiles()"
+                            ng-disabled="fileUpload.$invalid">
+                        Upload
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row" ng-controller="expressionsController" ng-show="calcExpressions">
+        <div class="col-12" ng-show="calculation"><h2>#{{calculation.id}}, {{calculation.date}}</h2></div>
+        <div class="col-12">
+            <table class="table table-striped table-bordered">
+                <thead>
+                <tr>
+                    <th scope="col">Expression</th>
+                    <th scope="col">Result</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="ex in calcExpressions">
+                    <td>{{ex.expression}}</td>
+                    <td>{{ex.result}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-12 float-right" ng-show="calculation">
+            <button class="btn btn-danger float-right m-2" ng-click="deleteCalculation(calculation)">Delete
+                Calculation
+            </button>
+            <button class="btn btn-primary float-right m-2" ng-click="cancelAction()">Cancel</button>
+        </div>
+        <div class="col-12 float-right" ng-show="!calculation">
+            <button class="btn btn-danger float-right m-2" ng-click="saveCalculation(calcExpressions)">
+                Save Calculation
+            </button>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
