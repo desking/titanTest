@@ -44,6 +44,7 @@ public class CalculatorServlet extends HttpServlet {
                 }
             }
         } catch (Exception e) {
+            e.printStackTrace();
             resp.setStatus(500);
         }
     }
@@ -90,6 +91,7 @@ public class CalculatorServlet extends HttpServlet {
 
             }
         } catch (Exception e) {
+            e.printStackTrace();
             resp.setStatus(500);
         }
     }
