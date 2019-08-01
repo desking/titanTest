@@ -1,6 +1,7 @@
 # titanTest
 Конкеш:
 
+```
 <Resource name="jdbc/titanTest" factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
               auth="Container"
               type="javax.sql.DataSource"
@@ -16,6 +17,6 @@
               testOnBorrow="true"
               validationQuery="select 1"
               />
-              
+```
               
 Дамп базы: backup.tar              
